@@ -6,25 +6,24 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.VBox?>
 
-
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Arquivo">
             <items>
-              <MenuItem mnemonicParsing="false" text="Fechar" />
+              <MenuItem fx:id="menuItemFechar" mnemonicParsing="false" onAction="#onMenuItemFechar" text="Fechar" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Técnicas">
             <items>
-              <MenuItem mnemonicParsing="false" text="Von Kries Média" />
-                  <MenuItem mnemonicParsing="false" text="Von Kries Mediana" />
+              <MenuItem fx:id="menuItemVonKriesMedia" mnemonicParsing="false" onAction="#onMenuItemVonKriesMedia" text="Von Kries Média" />
+                  <MenuItem fx:id="menuItemVonKriesMediana" mnemonicParsing="false" onAction="#onMenuItemVonKriesMediana" text="Von Kries Mediana" />
             </items>
           </Menu>
           <Menu mnemonicParsing="false" text="Ajuda">
             <items>
-              <MenuItem mnemonicParsing="false" text="Sobre" />
+              <MenuItem fx:id="menuItemSobre" mnemonicParsing="false" onAction="#onMenuItemSobre" text="Sobre" />
             </items>
           </Menu>
         </menus>
