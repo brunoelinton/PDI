@@ -16,7 +16,7 @@ public class MainViewController implements Initializable {
 	
 	
 	
-	// CONTROLES DA TELA PRINCIPAL
+	/*-----------< CONTROLES DA TELA PRINCIPAL >-----------*/
 	@FXML
 	private MenuItem menuItemFechar;
 	
@@ -29,10 +29,12 @@ public class MainViewController implements Initializable {
 	@FXML
 	private MenuItem menuItemSobre;
 	
-	// EVENTOS PARA CADA UMA DAS OPÇÕES DO MENU DA TELA PRINCIPAL
+	/*-----------< EVENTOS PARA CADA UMA DAS OPÇÕES DO MENU DA TELA PRINCIPAL >-----------*/
+
+	// MÉTODO QUE FINALIZA A APLICAÇÃO
 	@FXML
 	public void onMenuItemFechar() {
-		System.out.println("onMenuItemFechar");
+		Platform.exit();
 	}
 	
 	@FXML
