@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.SobreViewController">
+   <children>
+      <Rectangle arcWidth="5.0" fill="#63a3ab" height="400.0" stroke="TRANSPARENT" strokeType="INSIDE" width="100.0" HBox.hgrow="ALWAYS" />
+      <BorderPane prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS">
+         <top>
+            <VBox prefHeight="77.0" prefWidth="500.0" BorderPane.alignment="CENTER">
+               <children>
+                  <Label text="PDI">
+                     <font>
+                        <Font name="System Bold" size="22.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets left="8.0" top="22.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label text="Versão: 1.0.0">
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Separator prefWidth="200.0">
+                     <VBox.margin>
+                        <Insets top="7.0" />
+                     </VBox.margin>
+                  </Separator>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <Label fx:id="labelDescription" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets />
+               </BorderPane.margin>
+            </Label>
+         </center>
+         <bottom>
+            <ImageView fitHeight="55.0" fitWidth="120.0" pickOnBounds="true" preserveRatio="true" BorderPane.alignment="CENTER">
+               <image>
+                  <Image url="@images/sobre.png" />
+               </image>
+               <BorderPane.margin>
+                  <Insets bottom="10.0" />
+               </BorderPane.margin>
+            </ImageView>
+         </bottom>
+      </BorderPane>
+   </children>
+</HBox>
