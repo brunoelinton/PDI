@@ -4,18 +4,26 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import application.Main;
 import gui.util.Alerts;
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class MainViewController implements Initializable {
 	// CONSTRUTOR
@@ -38,7 +46,10 @@ public class MainViewController implements Initializable {
 	private MenuItem menuItemSobre;
 	
 	@FXML
-	private Button button;
+	private StackPane parentContainer;
+	
+	@FXML
+	private AnchorPane anchorRoot;
 	
 	/*-----------< EVENTOS PARA CADA UMA DAS OPÇÕES DO MENU DA TELA PRINCIPAL >-----------*/
 
@@ -50,7 +61,28 @@ public class MainViewController implements Initializable {
 	
 	@FXML
 	public void onMenuItemVonKriesMedia() {
+		
 		System.out.println("onMenuItemVonKriesMédia");
+		try {
+			Parent root = FXMLLoader.load(getClass().getResource("/gui/VonKriesMediaView.fxml"));
+			// Scene  scene =  menuItemVonKriesMedia.getParentPopup().getScene();
+			Scene scene = Main.getMainScene();
+			root.translateYProperty().set(scene.getHeight());
+			
+			parentContainer.getChildren().add(root);
+			
+			Timeline timeline = new Timeline();
+	        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
+	        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+	        timeline.getKeyFrames().add(kf);
+	        timeline.setOnFinished(t -> {
+	            parentContainer.getChildren().remove(anchorRoot);
+	        });
+	        timeline.play();
+		} catch(IOException e) {
+			Alerts.showAlert("IO Exception", "Error to calling Von Kries Media Process Image", e.getMessage(), AlertType.ERROR);
+		}
+		
 	}
 	
 	@FXML
