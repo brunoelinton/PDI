@@ -1,19 +1,23 @@
 package gui;
 
+import gui.util.Alerts;
+import techniques.VonKriesMedia;
+
 import java.io.File;
 import java.io.IOException;
+import java.awt.Color;
+import java.awt.image.BufferedImage;
+import javax.imageio.ImageIO;
+
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.swing.filechooser.FileNameExtensionFilter;
-
-import gui.util.Alerts;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -23,6 +27,9 @@ import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 
 public class VonKriesMediaViewController implements Initializable{
+	// LISTA DE IMAGENS
+	List<File> selectedFiles = null;
+	
 	@FXML
 	private AnchorPane anchorPane;
 	
@@ -59,11 +66,13 @@ public class VonKriesMediaViewController implements Initializable{
 		// fc.setInitialDirectory(new File("C:\\Users\\BRUNO\\Pictures"));
 		fc.getExtensionFilters().addAll(new ExtensionFilter("BMP Files", "*.bmp"), new ExtensionFilter("GIF Files", "*.gif"), new ExtensionFilter("JPEG Files", "*.jpg;*.jpe;*.jpeg"), new ExtensionFilter("PNG Files", "*.png"));
 		
-		List<File> selectedFiles = fc.showOpenMultipleDialog(null);
+		selectedFiles = fc.showOpenMultipleDialog(null);
 		
 		if(selectedFiles != null) {
-			for(File files: selectedFiles)
+			for(File files: selectedFiles) {
 				listViewImagens.getItems().add(files.getAbsoluteFile());
+			}
+			
 		} else {
 			System.out.println("Error");
 		}
@@ -79,14 +88,39 @@ public class VonKriesMediaViewController implements Initializable{
 			txtFieldlDiretorio.setText("Seleciona a pasta de destino");
 		} else {
 			txtFieldlDiretorio.setText(diretorioSelecionado.getAbsolutePath());
+			System.out.println(diretorioSelecionado.getPath());
 		}
 	}
 	
 	// MÉTODO PARA CANCELAR A OPERAÇÃO
+	@FXML
 	public void onBtCancelar() {
 		
 	}
 
+	// MÉTODO PARA PROCESSAR AS IMAGENS
+	@FXML
+	public void onBtProcessar(ActionEvent event) {
+		VonKriesMedia tecnicaVonkrieKriesMedia = new VonKriesMedia();
+		BufferedImage imagemOriginal = null;
+		BufferedImage imagemProcessada = null;
+		int count = 0;
+		try {
+			for(File file: selectedFiles) {
+				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
+				imagemProcessada = tecnicaVonkrieKriesMedia.GreennKG(imagemOriginal);
+				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
+				// imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
+				// ImageIO.write(imagemOriginal, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
+				count++;
+			}
+			
+		} catch(IOException e) {
+			e.printStackTrace();
+			Alerts.showAlert("Error", "Error in processing images", e.getMessage(), AlertType.ERROR);
+		}
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		borderPane.prefWidthProperty().bind(anchorPane.widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
