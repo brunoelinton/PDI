@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
+<VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.MainViewController">
    <children>
       <MenuBar prefWidth="800.0">
         <menus>
@@ -31,7 +31,7 @@
       </MenuBar>
       <StackPane fx:id="parentContainer" VBox.vgrow="ALWAYS">
          <children>
-            <AnchorPane fx:id="anchorRoot" prefHeight="200.0" prefWidth="200.0" StackPane.alignment="CENTER" />
+            <AnchorPane fx:id="anchorRoot" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="400.0" StackPane.alignment="CENTER" />
          </children>
       </StackPane>
    </children>

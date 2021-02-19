@@ -31,6 +31,7 @@ public class MainViewController implements Initializable {
 		System.out.println("Controller iniciado!");
 	}
 	
+	private static Parent root;
 	
 	/*-----------< CONTROLES DA TELA PRINCIPAL >-----------*/
 	@FXML
@@ -64,7 +65,7 @@ public class MainViewController implements Initializable {
 		
 		System.out.println("onMenuItemVonKriesMédia");
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/gui/VonKriesMediaView.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/gui/VonKriesMediaView.fxml"));
 			// Scene  scene =  menuItemVonKriesMedia.getParentPopup().getScene();
 			Scene scene = Main.getMainScene();
 			root.translateYProperty().set(scene.getHeight());
@@ -73,7 +74,7 @@ public class MainViewController implements Initializable {
 			
 			Timeline timeline = new Timeline();
 	        KeyValue kv = new KeyValue(root.translateYProperty(), 0, Interpolator.EASE_IN);
-	        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+	        KeyFrame kf = new KeyFrame(Duration.seconds(0.5), kv);
 	        timeline.getKeyFrames().add(kf);
 	        timeline.setOnFinished(t -> {
 	            parentContainer.getChildren().remove(anchorRoot);
@@ -127,4 +128,7 @@ public class MainViewController implements Initializable {
 		
 	}
 
+	public static Parent getRoot() {
+		return root;
+	}
 }

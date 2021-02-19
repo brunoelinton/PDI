@@ -6,6 +6,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 
@@ -29,7 +30,8 @@ public class Main extends Application {
 			// AGORA NÓS INSERIMOS NO "PALCO" A CENA QUE SERÁ EXIBIDA
 			// O PALCO É REPRESENTADO PELA VARIÁVEL 'primaryStage' QUE É DO TIPO 'Stage', ISTO É, "PALCO"
 			primaryStage.setScene(mainScene);
-			
+			primaryStage.setTitle("PDI - Processamento Digital de Imagens");
+			primaryStage.getIcons().add(new Image("/gui/images/icon.png"));
 			// CONFIGURANDO O 'PALCO', ISTO É, A JANELA PRINCIPAL DA APLICAÇÃO PARA SER EXIBIDA NO TAMANHO MÁXIMO
 			//primaryStage.setMaximized(true);
 			

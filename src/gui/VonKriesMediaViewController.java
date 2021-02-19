@@ -9,26 +9,39 @@ import java.awt.Color;
 import java.awt.image.BufferedImage;
 import javax.imageio.ImageIO;
 
+import application.Main;
+
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javafx.animation.Interpolator;
+import javafx.animation.KeyFrame;
+import javafx.animation.KeyValue;
+import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.util.Duration;
 
 public class VonKriesMediaViewController implements Initializable{
 	// LISTA DE IMAGENS
 	List<File> selectedFiles = null;
+	File[] files;
 	
 	@FXML
 	private AnchorPane anchorPane;
@@ -54,6 +67,8 @@ public class VonKriesMediaViewController implements Initializable{
 	@FXML
 	private TextField txtFieldlDiretorio;
 	
+	@FXML
+	private VBox vBox;
 	// CONSTRUTOR
 	public VonKriesMediaViewController() {
 		
@@ -61,16 +76,14 @@ public class VonKriesMediaViewController implements Initializable{
 	
 	// MÉTODO PARA CARREGAR OS ARQUIVOS DE IMAGEM
 	@FXML
-	public void onBtAddImagens() {
-		FileChooser fc = new FileChooser();
-		// fc.setInitialDirectory(new File("C:\\Users\\BRUNO\\Pictures"));
-		fc.getExtensionFilters().addAll(new ExtensionFilter("BMP Files", "*.bmp"), new ExtensionFilter("GIF Files", "*.gif"), new ExtensionFilter("JPEG Files", "*.jpg;*.jpe;*.jpeg"), new ExtensionFilter("PNG Files", "*.png"));
+	public void onBtAddPastaOrigem() {
+		DirectoryChooser diretorioOrigem = new DirectoryChooser();
+		File diretorioSelecionado = diretorioOrigem.showDialog(null);
 		
-		selectedFiles = fc.showOpenMultipleDialog(null);
-		
-		if(selectedFiles != null) {
-			for(File files: selectedFiles) {
-				listViewImagens.getItems().add(files.getAbsoluteFile());
+		files = diretorioSelecionado.listFiles();
+		if(files != null) {
+			for(File file: files) {
+				listViewImagens.getItems().add(file.getAbsoluteFile());
 			}
 			
 		} else {
@@ -95,6 +108,33 @@ public class VonKriesMediaViewController implements Initializable{
 	// MÉTODO PARA CANCELAR A OPERAÇÃO
 	@FXML
 	public void onBtCancelar() {
+		System.out.println("Exit VonKriesMédia");
+		txtFieldlDiretorio.setText(null);
+		
+		// DESALOCANDO OS ITENS DO 'listviewImagens' EXIBIDOS NA TELA
+		if (files != null) {
+			for(File file: files) {
+				listViewImagens.getItems().remove(file);
+			}
+			
+			// DESALOCANDO O VETOR DE IMAGENS
+			Arrays.fill(files, null);	// SETANDO CADA POSIÇÃO COMO NULL
+			files = null;				// LIBERANDO O VETOR
+		}
+		try {
+			Parent root = MainViewController.getRoot();
+			Scene scene = Main.getMainScene();
+			root.translateYProperty().set(0);
+
+			Timeline timeline = new Timeline();
+	        KeyValue kv = new KeyValue(root.translateYProperty(), scene.getHeight()*2, Interpolator.EASE_IN);
+	        KeyFrame kf = new KeyFrame(Duration.seconds(1), kv);
+	        timeline.getKeyFrames().add(kf);
+	        timeline.play();
+			
+		} catch(IllegalStateException e) {
+			Alerts.showAlert("IO Exception", "Error to calling Von Kries Media Process Image", e.getMessage(), AlertType.ERROR);
+		}
 		
 	}
 
@@ -106,7 +146,7 @@ public class VonKriesMediaViewController implements Initializable{
 		BufferedImage imagemProcessada = null;
 		int count = 0;
 		try {
-			for(File file: selectedFiles) {
+			for(File file: files) {
 				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				imagemProcessada = tecnicaVonkrieKriesMedia.GreennKG(imagemOriginal);
 				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
@@ -123,7 +163,13 @@ public class VonKriesMediaViewController implements Initializable{
 	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		borderPane.prefWidthProperty().bind(anchorPane.widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
-		borderPane.prefHeightProperty().bind(anchorPane.heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
+		//borderPane.prefWidthProperty().bind(anchorPane.widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
+		//borderPane.prefHeightProperty().bind(anchorPane.heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
+		
+		borderPane.prefHeightProperty().bind(Main.getMainScene().heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
+        borderPane.prefWidthProperty().bind(Main.getMainScene().widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
+        
+		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldlDiretorio.textProperty().isEmpty()));
+		
 	}
 }
