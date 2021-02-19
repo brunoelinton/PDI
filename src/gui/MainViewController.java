@@ -82,6 +82,7 @@ public class MainViewController implements Initializable {
 	        timeline.play();
 		} catch(IOException e) {
 			Alerts.showAlert("IO Exception", "Error to calling Von Kries Media Process Image", e.getMessage(), AlertType.ERROR);
+			e.printStackTrace();
 		}
 		
 	}

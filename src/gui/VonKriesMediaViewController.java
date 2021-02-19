@@ -65,10 +65,11 @@ public class VonKriesMediaViewController implements Initializable{
 	private Button btDiretorio;
 	
 	@FXML
-	private TextField txtFieldlDiretorio;
+	private TextField txtFieldDiretorioOrigem;
 	
 	@FXML
-	private VBox vBox;
+	private TextField txtFieldDiretorioDestino;
+	
 	// CONSTRUTOR
 	public VonKriesMediaViewController() {
 		
@@ -79,6 +80,13 @@ public class VonKriesMediaViewController implements Initializable{
 	public void onBtAddPastaOrigem() {
 		DirectoryChooser diretorioOrigem = new DirectoryChooser();
 		File diretorioSelecionado = diretorioOrigem.showDialog(null);
+		
+		if(diretorioSelecionado == null) {
+			txtFieldDiretorioOrigem.setText("Seleciona a pasta de destino");
+		} else {
+			txtFieldDiretorioOrigem.setText(diretorioSelecionado.getAbsolutePath());
+			System.out.println(diretorioSelecionado.getPath());
+		}
 		
 		files = diretorioSelecionado.listFiles();
 		if(files != null) {
@@ -98,9 +106,9 @@ public class VonKriesMediaViewController implements Initializable{
 		File diretorioSelecionado = diretorioDestino.showDialog(null);
 		
 		if(diretorioSelecionado == null) {
-			txtFieldlDiretorio.setText("Seleciona a pasta de destino");
+			txtFieldDiretorioDestino.setText("Seleciona a pasta de destino");
 		} else {
-			txtFieldlDiretorio.setText(diretorioSelecionado.getAbsolutePath());
+			txtFieldDiretorioDestino.setText(diretorioSelecionado.getAbsolutePath());
 			System.out.println(diretorioSelecionado.getPath());
 		}
 	}
@@ -109,7 +117,8 @@ public class VonKriesMediaViewController implements Initializable{
 	@FXML
 	public void onBtCancelar() {
 		System.out.println("Exit VonKriesMédia");
-		txtFieldlDiretorio.setText(null);
+		txtFieldDiretorioOrigem.setText(null);
+		txtFieldDiretorioDestino.setText(null);
 		
 		// DESALOCANDO OS ITENS DO 'listviewImagens' EXIBIDOS NA TELA
 		if (files != null) {
@@ -149,7 +158,7 @@ public class VonKriesMediaViewController implements Initializable{
 			for(File file: files) {
 				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				imagemProcessada = tecnicaVonkrieKriesMedia.GreennKG(imagemOriginal);
-				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
+				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + ".png"));
 				// imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				// ImageIO.write(imagemOriginal, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
 				count++;
@@ -169,7 +178,7 @@ public class VonKriesMediaViewController implements Initializable{
 		borderPane.prefHeightProperty().bind(Main.getMainScene().heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
         borderPane.prefWidthProperty().bind(Main.getMainScene().widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
         
-		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldlDiretorio.textProperty().isEmpty()));
+		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldDiretorioDestino.textProperty().isEmpty()));
 		
 	}
 }

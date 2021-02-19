@@ -68,18 +68,33 @@
                                     <Insets left="10.0" />
                                  </VBox.margin>
                               </Label>
-                              <Button fx:id="btAddImagens" minHeight="33.0" minWidth="33.0" mnemonicParsing="false" onAction="#onBtAddPastaOrigem" prefHeight="33.0" prefWidth="130.0" text="Pasta de origem">
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Button fx:id="btAddImagens" minHeight="33.0" minWidth="33.0" mnemonicParsing="false" onAction="#onBtAddPastaOrigem" prefHeight="33.0" prefWidth="110.0" text="Pasta de origem">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Button>
+                                    <TextField fx:id="txtFieldDiretorioOrigem" minHeight="33.0" prefHeight="33.0" prefWidth="175.0" promptText="Pasta de origem" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="5.0" />
+                                       </HBox.margin>
+                                    </TextField>
+                                 </children>
+                                 <padding>
+                                    <Insets left="15.0" />
+                                 </padding>
                                  <VBox.margin>
-                                    <Insets bottom="10.0" left="15.0" top="5.0" />
+                                    <Insets top="5.0" />
                                  </VBox.margin>
-                              </Button>
+                              </HBox>
                            </children>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
                               <Label text="Opçõed de saída:">
                                  <VBox.margin>
-                                    <Insets left="15.0" />
+                                    <Insets />
                                  </VBox.margin>
                                  <font>
                                     <Font name="System Bold" size="12.0" />
@@ -87,19 +102,19 @@
                               </Label>
                               <HBox prefHeight="100.0" prefWidth="200.0">
                                  <children>
-                                    <TextField fx:id="txtFieldlDiretorio" minHeight="33.0" prefHeight="33.0" prefWidth="238.0" promptText="Pasta de destino" HBox.hgrow="ALWAYS">
+                                    <Button fx:id="btDiretorio" minHeight="33.0" minWidth="33.0" mnemonicParsing="false" onAction="#onBtPastaDestino" prefHeight="33.0" prefWidth="110.0" text="Pasta de destino">
                                        <HBox.margin>
-                                          <Insets left="20.0" right="5.0" />
-                                       </HBox.margin>
-                                    </TextField>
-                                    <Button fx:id="btDiretorio" minHeight="33.0" minWidth="33.0" mnemonicParsing="false" onAction="#onBtPastaDestino" prefHeight="33.0" prefWidth="33.0" text="...">
-                                       <HBox.margin>
-                                          <Insets right="15.0" />
+                                          <Insets />
                                        </HBox.margin>
                                     </Button>
+                                    <TextField fx:id="txtFieldDiretorioDestino" minHeight="33.0" prefHeight="33.0" prefWidth="175.0" promptText="Pasta de destino" HBox.hgrow="ALWAYS">
+                                       <HBox.margin>
+                                          <Insets left="5.0" right="15.0" />
+                                       </HBox.margin>
+                                    </TextField>
                                  </children>
                                  <VBox.margin>
-                                    <Insets top="5.0" />
+                                    <Insets left="15.0" top="5.0" />
                                  </VBox.margin>
                               </HBox>
                            </children>
@@ -138,7 +153,7 @@
                      <children>
                         <ListView fx:id="listViewImagens" prefHeight="400.0" prefWidth="570.0" VBox.vgrow="ALWAYS">
                            <VBox.margin>
-                              <Insets left="15.0" right="15.0" />
+                              <Insets left="15.0" right="15.0" top="5.0" />
                            </VBox.margin>
                         </ListView>
                      </children>
