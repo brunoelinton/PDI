@@ -61,11 +61,11 @@ public class MainViewController implements Initializable {
 	}
 	
 	@FXML
-	public void onMenuItemVonKriesMedia() {
+	public void onMenuItemProcessamentoLote() {
 		
 		System.out.println("onMenuItemVonKriesMédia");
 		try {
-			root = FXMLLoader.load(getClass().getResource("/gui/VonKriesMediaView.fxml"));
+			root = FXMLLoader.load(getClass().getResource("/gui/ProcessamentoLoteView.fxml"));
 			// Scene  scene =  menuItemVonKriesMedia.getParentPopup().getScene();
 			Scene scene = Main.getMainScene();
 			root.translateYProperty().set(scene.getHeight());

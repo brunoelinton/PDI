@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Separator?>
@@ -10,15 +11,18 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.VonKriesMediaViewController">
+<AnchorPane fx:id="anchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minWidth="-Infinity" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ProcessamentoLoteViewController">
    <children>
       <BorderPane fx:id="borderPane" prefHeight="400.0" prefWidth="600.0">
          <top>
-            <VBox prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #cccccc;" BorderPane.alignment="CENTER">
+            <VBox minHeight="180.0" prefHeight="67.0" prefWidth="600.0" style="-fx-background-color: #cccccc;" BorderPane.alignment="CENTER">
                <children>
                   <HBox prefHeight="79.0" prefWidth="600.0" style="-fx-background-color: #cccccc;">
                      <children>
@@ -30,7 +34,7 @@
                               <Insets left="8.0" top="20.0" />
                            </HBox.margin>
                         </ImageView>
-                        <Label text="Técnica de aprimoramento:" textFill="#6b5d5d">
+                        <Label text="Aprimoramento de Imagens:" textFill="#6b5d5d">
                            <HBox.margin>
                               <Insets left="8.0" top="20.0" />
                            </HBox.margin>
@@ -38,7 +42,7 @@
                               <Font name="System Bold Italic" size="14.0" />
                            </font>
                         </Label>
-                        <Label text="Von Kries - Média">
+                        <Label text="Processamento baseado em técnicas de constância de cor">
                            <HBox.margin>
                               <Insets left="5.0" top="22.0" />
                            </HBox.margin>
@@ -92,7 +96,7 @@
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                            <children>
-                              <Label text="Opçõed de saída:">
+                              <Label text="Opções de saída:">
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
@@ -121,6 +125,72 @@
                         </VBox>
                      </children>
                   </HBox>
+                  <VBox prefHeight="200.0" prefWidth="100.0">
+                     <children>
+                        <Label text="Técnicas:">
+                           <VBox.margin>
+                              <Insets left="15.0" />
+                           </VBox.margin>
+                           <font>
+                              <Font name="System Bold" size="12.0" />
+                           </font>
+                        </Label>
+                        <GridPane alignment="CENTER" prefWidth="600.0" VBox.vgrow="ALWAYS">
+                          <columnConstraints>
+                              <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                            <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                          </columnConstraints>
+                          <rowConstraints>
+                            <RowConstraints maxHeight="15.0" minHeight="10.0" prefHeight="15.0" vgrow="SOMETIMES" />
+                          </rowConstraints>
+                           <children>
+                              <HBox prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <CheckBox fx:id="chkBoxVonKriesMedia" mnemonicParsing="false" onAction="#chkVKMedia" text="Von Kries - Média" textFill="#535353">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                                 <GridPane.margin>
+                                    <Insets />
+                                 </GridPane.margin>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="1">
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                                 <children>
+                                    <CheckBox fx:id="chkBoxVonKriesMediana" mnemonicParsing="false" text="Von Kries - Mediana" textFill="#535353">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                              </HBox>
+                              <HBox prefHeight="100.0" prefWidth="200.0" GridPane.columnIndex="2">
+                                 <children>
+                                    <CheckBox fx:id="chkBoxOutra" mnemonicParsing="false" text="Outra" textFill="#535353">
+                                       <font>
+                                          <Font name="System Bold Italic" size="12.0" />
+                                       </font>
+                                    </CheckBox>
+                                 </children>
+                                 <padding>
+                                    <Insets left="30.0" />
+                                 </padding>
+                              </HBox>
+                           </children>
+                        </GridPane>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </VBox>
                </children>
             </VBox>
          </top>

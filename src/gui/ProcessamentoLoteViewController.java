@@ -1,44 +1,38 @@
 package gui;
 
-import gui.util.Alerts;
-import techniques.VonKriesMedia;
-
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.awt.Color;
-import java.awt.image.BufferedImage;
-import javax.imageio.ImageIO;
-
-import application.Main;
-
 import java.net.URL;
 import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import javax.imageio.ImageIO;
+
+import application.Main;
+import gui.util.Alerts;
 import javafx.animation.Interpolator;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.DirectoryChooser;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.util.Duration;
+import techniques.VonKriesMedia;
 
-public class VonKriesMediaViewController implements Initializable{
+public class ProcessamentoLoteViewController implements Initializable{
 	// LISTA DE IMAGENS
 	List<File> selectedFiles = null;
 	File[] files;
@@ -53,7 +47,7 @@ public class VonKriesMediaViewController implements Initializable{
 	private Button btAddImagens;
 	
 	@FXML
-	private ListView listViewImagens;
+	private ListView<File> listViewImagens;
 
 	@FXML
 	private Button btProcessar;
@@ -70,8 +64,17 @@ public class VonKriesMediaViewController implements Initializable{
 	@FXML
 	private TextField txtFieldDiretorioDestino;
 	
+	@FXML
+	private CheckBox chkBoxVonKriesMedia;
+	
+	@FXML
+	private CheckBox chkBoxVonKriesMediana;
+	
+	@FXML
+	private CheckBox chkBoxOutra;
+	
 	// CONSTRUTOR
-	public VonKriesMediaViewController() {
+	public ProcessamentoLoteViewController() {
 		
 	}
 	
@@ -119,6 +122,7 @@ public class VonKriesMediaViewController implements Initializable{
 		System.out.println("Exit VonKriesMédia");
 		txtFieldDiretorioOrigem.setText(null);
 		txtFieldDiretorioDestino.setText(null);
+		chkBoxVonKriesMedia.setDisable(true);
 		
 		// DESALOCANDO OS ITENS DO 'listviewImagens' EXIBIDOS NA TELA
 		if (files != null) {
@@ -158,7 +162,7 @@ public class VonKriesMediaViewController implements Initializable{
 			for(File file: files) {
 				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				imagemProcessada = tecnicaVonkrieKriesMedia.GreennKG(imagemOriginal);
-				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + ".png"));
+				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + "VKMedia.png"));
 				// imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				// ImageIO.write(imagemOriginal, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
 				count++;
@@ -170,6 +174,13 @@ public class VonKriesMediaViewController implements Initializable{
 		}
 	}
 	
+	@FXML
+	public void chkVKMedia() {
+		if(chkBoxVonKriesMedia.isSelected()) {
+			System.out.println("Von Kries Média!");
+		}
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		//borderPane.prefWidthProperty().bind(anchorPane.widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
@@ -178,7 +189,7 @@ public class VonKriesMediaViewController implements Initializable{
 		borderPane.prefHeightProperty().bind(Main.getMainScene().heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
         borderPane.prefWidthProperty().bind(Main.getMainScene().widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
         
-		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldDiretorioDestino.textProperty().isEmpty()));
+		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldDiretorioDestino.textProperty().isEmpty()).or(chkBoxVonKriesMedia.selectedProperty().not()));
 		
 	}
 }
