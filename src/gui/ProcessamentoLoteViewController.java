@@ -161,7 +161,7 @@ public class ProcessamentoLoteViewController implements Initializable{
 		try {
 			for(File file: files) {
 				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
-				imagemProcessada = tecnicaVonkrieKriesMedia.GreennKG(imagemOriginal);
+				imagemProcessada = tecnicaVonkrieKriesMedia.media(imagemOriginal);
 				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + "VKMedia.png"));
 				// imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
 				// ImageIO.write(imagemOriginal, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));

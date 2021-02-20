@@ -4,7 +4,7 @@ import java.awt.image.BufferedImage;
 import java.awt.Color;
 
 public class VonKriesMedia {
-	public BufferedImage GreennKG(BufferedImage imagemOriginal) {
+	public BufferedImage media(BufferedImage imagemOriginal) {
 		
 		int linha, coluna, R = 0, G = 0, B = 0;
 		double newR, newG, newB, avgR = 0, avgG = 0, avgB = 0, A, Bi, pixelTotal = 0;
