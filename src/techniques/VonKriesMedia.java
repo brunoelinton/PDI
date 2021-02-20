@@ -12,7 +12,7 @@ public class VonKriesMedia {
 		BufferedImage imagemVon = new BufferedImage(imagemOriginal.getWidth(), imagemOriginal.getHeight(), imagemOriginal.getType());
 		
 		for (linha = 0; linha < imagemOriginal.getWidth(); linha++) {
-			for (coluna = 1; coluna < imagemOriginal.getHeight(); coluna++) {
+			for (coluna = 0; coluna < imagemOriginal.getHeight(); coluna++) {
 				rgb = new Color(imagemOriginal.getRGB(linha, coluna));
 				R = rgb.getRed() ;
 				G = rgb.getGreen();
@@ -34,7 +34,7 @@ public class VonKriesMedia {
 			A = avgB / avgR;
 			Bi = avgB / avgG;
 			for (linha = 0; linha < imagemOriginal.getWidth(); linha++) {
-				for (coluna = 1; coluna < imagemOriginal.getHeight(); coluna++) {
+				for (coluna = 0; coluna < imagemOriginal.getHeight(); coluna++) {
 					rgb = new Color(imagemOriginal.getRGB(linha, coluna));
 
 					newG = rgb.getGreen() * Bi;
@@ -57,7 +57,7 @@ public class VonKriesMedia {
 			Bi = avgR / avgG;
 		
 			for (linha = 0; linha < imagemOriginal.getWidth(); linha++) {
-				for (coluna = 1; coluna < imagemOriginal.getHeight(); coluna++) {
+				for (coluna = 0; coluna < imagemOriginal.getHeight(); coluna++) {
 					rgb = new Color(imagemOriginal.getRGB(linha, coluna));
 
 					newG = rgb.getGreen() * Bi;
@@ -80,7 +80,7 @@ public class VonKriesMedia {
 			A = avgG / avgR;
 			Bi = avgG / avgB;
 			for (linha = 0; linha < imagemOriginal.getWidth(); linha++) {
-				for (coluna = 1; coluna < imagemOriginal.getHeight(); coluna++) {
+				for (coluna = 0; coluna < imagemOriginal.getHeight(); coluna++) {
 					rgb = new Color(imagemOriginal.getRGB(linha, coluna));
 				
 					newB = rgb.getBlue() * Bi;
