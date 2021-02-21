@@ -8,8 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import javax.imageio.ImageIO;
-
 import application.Main;
 import gui.util.Alerts;
 import javafx.animation.Interpolator;
@@ -30,7 +28,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.DirectoryChooser;
 import javafx.util.Duration;
+
+import javax.imageio.ImageIO;
+
 import techniques.VonKriesMedia;
+import techniques.VonKriesMediana;
 
 public class ProcessamentoLoteViewController implements Initializable{
 	// LISTA DE IMAGENS
@@ -155,19 +157,26 @@ public class ProcessamentoLoteViewController implements Initializable{
 	@FXML
 	public void onBtProcessar(ActionEvent event) {
 		VonKriesMedia tecnicaVonkrieKriesMedia = new VonKriesMedia();
+		VonKriesMediana tecnicaVonKriesMediana = new VonKriesMediana();
+		
 		BufferedImage imagemOriginal = null;
 		BufferedImage imagemProcessada = null;
 		int count = 0;
 		try {
 			for(File file: files) {
 				imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
-				imagemProcessada = tecnicaVonkrieKriesMedia.media(imagemOriginal);
-				ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + "VKMedia.png"));
-				// imagemOriginal = ImageIO.read(new File(file.getAbsolutePath()));
-				// ImageIO.write(imagemOriginal, "PNG",new File(txtFieldlDiretorio.getText()+"\\out" + count + ".png"));
+				if(chkBoxVonKriesMedia.isSelected()) {
+					System.out.println("Media");
+					imagemProcessada = tecnicaVonkrieKriesMedia.media(imagemOriginal);
+					ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + "VKMedia.png"));
+				}
+				if(chkBoxVonKriesMediana.isSelected()) {
+					System.out.println("Mediana");
+					imagemProcessada = tecnicaVonKriesMediana.mediana(imagemOriginal);
+					ImageIO.write(imagemProcessada, "PNG",new File(txtFieldDiretorioDestino.getText()+"\\out" + count + "VKMediana.png"));
+				}
 				count++;
 			}
-			
 		} catch(IOException e) {
 			e.printStackTrace();
 			Alerts.showAlert("Error", "Error in processing images", e.getMessage(), AlertType.ERROR);
@@ -189,7 +198,7 @@ public class ProcessamentoLoteViewController implements Initializable{
 		borderPane.prefHeightProperty().bind(Main.getMainScene().heightProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A ALTURA DO 'BORDER PANE' DE ACORDO COM A ALTURA DO 'ANCHOR PANE'
         borderPane.prefWidthProperty().bind(Main.getMainScene().widthProperty());	// AJUSTANDO DE FORMA AUTOMÁTICA A LARGURA DO 'BORDER PANE' DE ACORDO COM A LARGURA DO 'ANCHOR PANE'
         
-		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldDiretorioDestino.textProperty().isEmpty()).or(chkBoxVonKriesMedia.selectedProperty().not()));
+		btProcessar.disableProperty().bind(listViewImagens.itemsProperty().isNull().or(txtFieldDiretorioDestino.textProperty().isEmpty()).or(chkBoxVonKriesMedia.selectedProperty().not().and(chkBoxVonKriesMediana.selectedProperty().not())));
 		
 	}
 }
